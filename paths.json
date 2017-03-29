@@ -1,0 +1,13 @@
+{
+  "getTrackingSettings": "/v3/tracking_settings",
+  "UpdateClickSettings": "/v3/tracking_settings/click",
+  "UpdateOpenSettings": "/v3/tracking_settings/open",
+  "spamCheker": "/v3/mail_settings/spam_check",
+  "getAllIps": "/v3/ips",
+  "getAssignedIps": "/v3/ips/assigned",
+  "ipPools": "/v3/ips/pools",
+  "ipsWarmup": "/v3/ips/warmup",
+  "subusers": "/v3/subusers",
+  "subuserReputation": "/v3/subusers/reputations",
+  "lastPathSubuserIps":"/ips"
+}

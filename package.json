@@ -1,0 +1,13 @@
+{
+  "name": "sendgrid-patch",
+  "version": "1.0.0",
+  "description": "",
+  "main": "addIps.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start":"node addIps.js",
+    "addIp":"node addIps.js"
+  },
+  "author": "",
+  "license": "ISC"
+}
