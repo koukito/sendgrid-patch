@@ -2,7 +2,6 @@ var apiKey = require(__dirname + '/apiKey.json').API_KEY;
 var sg = require('sendgrid')(apiKey);
 var url = require(__dirname + '/paths.json');
 var generic = require(__dirname + '/generic.js');
-console.log(url.subusers);
 if (typeof Promise == 'undefined') {
     var Promise = require('es6-promise').Promise;
 }
@@ -18,19 +17,18 @@ var SubuserBatch = module.exports = {
                 reject(err);
             })
         })
-
     },
     getProductionSubusers: function () {
         return new Promise(function (resolve, reject) {
-            SubuserBatch.getSubusers().on('success', function (data) {
+            SubuserBatch.getSubusers().then(function (data) {
                 var subusers = [];
                 data.forEach(function (subuser) {
-                    if (!subuser.username.includes('dev_a_')) {
+                    if (subuser.username.indexOf('a_') == 0) {
                         subusers.push(subuser);
                     }
                 })
                 resolve(subusers);
-            }).on('fail', function (err) {
+            }).catch(function (err) {
                 reject(err);
             })
         })
@@ -42,7 +40,7 @@ var SubuserBatch = module.exports = {
             SubuserBatch.getSubusers().then(function (data) {
                 var subusers = [];
                 data.forEach(function (subuser) {
-                    if (subuser.username.includes('dev_a_')) {
+                    if (!(subuser.username.indexOf('a_') == 0)) {
                         subusers.push(subuser);
                     }
                 })
@@ -52,6 +50,15 @@ var SubuserBatch = module.exports = {
             })
         })
 
+    },
+    getSubusersReputation: function(username){
+        return new Promise(function (resolve, reject) {
+            generic.executeGetRequestsWithParams(url.subuserReputation,"usernames",username).then(function(result){
+                resolve(result);
+            }).catch(function(err){
+                reject(err);
+            })
+        })
     },
     patchSubuser: function (username, payload, path) {
         return new Promise(function (resolve, reject) {
@@ -69,6 +76,15 @@ var SubuserBatch = module.exports = {
             }).catch(function (err) {
                 reject(err);
             });
+        })
+    },
+    getIpsInWarmup:function(){
+        return new Promise(function (resolve, reject) {
+            generic.executeGetRequests(url.ipsWarmup).then(function (data) {
+                resolve(data);
+            }).catch(function (err) {
+                reject(err);
+            })
         })
     }
 

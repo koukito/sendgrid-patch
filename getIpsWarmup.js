@@ -11,14 +11,8 @@ if (typeof Promise == 'undefined') {
 }
 
 
-SubusersBatch.getDevelopmentSubusers().then(function (devsubusers) {
-    devsubusers.forEach(function (subuser) {
-        SubusersBatch.updateIpsSubuser(subuser.username, ips).then(function (data) {
-            console.log(subuser.username + ' updated with ips ' + data);
-        }).catch(function (err) {
-            console.log(err);
-        })
-    })
+SubusersBatch.getIpsInWarmup().then(function (ips) {
+   console.log(ips);
 }).catch(function (err) {
     console.log(err)
 });

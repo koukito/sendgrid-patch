@@ -11,10 +11,13 @@ if (typeof Promise == 'undefined') {
 }
 
 
-SubusersBatch.getDevelopmentSubusers().then(function (devsubusers) {
+SubusersBatch.getProductionSubusers().then(function (devsubusers) {
     devsubusers.forEach(function (subuser) {
-        SubusersBatch.updateIpsSubuser(subuser.username, ips).then(function (data) {
-            console.log(subuser.username + ' updated with ips ' + data);
+        SubusersBatch.getSubusersReputation(subuser.username).then(function (data) {
+            if(data[0].reputation < 50)
+            {
+                console.log(data);
+            }
         }).catch(function (err) {
             console.log(err);
         })

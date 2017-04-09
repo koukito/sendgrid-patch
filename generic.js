@@ -23,7 +23,22 @@ var GenericApi = module.exports = {
             })
         })
     },
+    executeGetRequestsWithParams: function (path, paramname,param) {
+        var request = sg.emptyRequest();
+        request.queryParams[paramname] = param;
+        request.method = 'GET';
+        request.path = path;
+        return new Promise(function (resolve, reject) {
+            sg.API(request, function (error, response) {
+                if (response) {
+                    resolve(response.body);
+                } else {
+                    reject(error);
+                }
 
+            })
+        })
+    },
     executeGetRequests: function (path) {
         var request = sg.emptyRequest()
         request.method = 'GET';
@@ -61,7 +76,7 @@ var GenericApi = module.exports = {
         var request = sg.emptyRequest();
         request.method = 'PUT';
         request.body = body;
-        request.path = basePath+'/' + param + lastpath;
+        request.path = basePath + '/' + param + lastpath;
         return new Promise(function (resolve, reject) {
             sg.API(request, function (error, response) {
                 if (response) {
